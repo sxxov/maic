@@ -1,0 +1,12 @@
+{
+	"name": "maic",
+	"description": "ma(terial )ic(ons)",
+	"type": "module",
+	"keywords": ["material", "icons", "svg", "module", "tree-shaking"],
+	"author": "sxxov",
+	"repository": {
+		"type": "git",
+		"url": "https://githb.com/sxxov/maic.git"
+	},
+	"license": "MIT"
+}

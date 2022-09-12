@@ -1,0 +1,48 @@
+name: Auto Update
+
+on:
+  schedule:
+    - cron: '23 1 * * *' # Runs at 01:23 UTC every day
+  workflow_dispatch:
+    inputs:
+      force:
+        description: Force Update
+        default: '0'
+      dry:
+        description: Dry Run
+        default: '1'
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ssh-key: ${{ secrets.DEPLOY_KEY }}
+      - uses: git-actions/set-user@v1
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16
+      - run: npm ci
+      - name: Update
+        run: |
+          force="${{ github.event.inputs.force }}"
+          dry="${{ github.event.inputs.dry }}"
+		      npm run update
+          status=0
+          npm run build || status=$?
+          if [ $status -gt 0 ]; then
+            if [ $status -ne 69 ]; then
+              exit $status
+            fi
+            if [ "$force" != "1" ]; then
+              exit 0
+            fi
+          fi
+          git add --all
+          git commit -m '🔨' || [ "$force" = "1" ] || exit 1
+          # Push
+          if [ "$dry" = "1" ]; then
+            exit 0
+          fi
+          git push --follow-tags
