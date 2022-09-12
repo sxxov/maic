@@ -274,7 +274,7 @@ writeFile(
 		{
 			...pkgd,
 			types: pathToPkgPath(relative(distDir, distDtsPath)),
-			version: iconVersion,
+			version: iconVersion.replace(/^\D+/, ''),
 
 			/* eslint-disable @typescript-eslint/naming-convention */
 			exports: {
