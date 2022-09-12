@@ -1,4 +1,4 @@
-name: Auto Update
+name: Update
 
 on:
   schedule:
@@ -28,7 +28,7 @@ jobs:
         run: |
           force="${{ github.event.inputs.force }}"
           dry="${{ github.event.inputs.dry }}"
-		      npm run update
+          npm run update
           status=0
           npm run build || status=$?
           if [ $status -gt 0 ]; then
