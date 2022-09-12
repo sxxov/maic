@@ -47,3 +47,7 @@ jobs:
             exit 0
           fi
           git push --follow-tags
+      - name: Publish
+        run: npm run publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
