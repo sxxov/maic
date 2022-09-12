@@ -6,7 +6,7 @@
 	"scripts": {
 		"build": "node --loader ts-node/esm build/index.ts",
 		"update": "npm i -D @material-design-icons/svg@*",
-		"publish": "npm publish -w dist"
+		"publish": "npm publish -w maic"
 	},
 	"devDependencies": {
 		"@material-design-icons/svg": "^0.12.1",
