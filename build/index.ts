@@ -330,5 +330,6 @@ writeFile(
 
 copyFile(join(pkgDir, './.npmignore'), join(distDir, './.npmignore'));
 copyFile(join(pkgDir, './readme.md'), join(distDir, './readme.md'));
+copyFile(join(pkgDir, './license'), join(distDir, './license'));
 
 writeFile(infoPath, JSON.stringify(currInfo, undefined, '\t'));
