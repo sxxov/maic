@@ -6,7 +6,8 @@
 	"author": "sxxov",
 	"repository": {
 		"type": "git",
-		"url": "https://githb.com/sxxov/maic.git"
+		"url": "https://github.com/sxxov/maic.git"
 	},
+	"homepage": "https://github.com/sxxov/maic#readme",
 	"license": "MIT"
 }
