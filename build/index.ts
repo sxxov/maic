@@ -248,7 +248,7 @@ writeFile(
 								icon,
 							)}: typeof import('${pkgName}/${variantToExportName(
 								variant,
-							)}/${iconToExportName(icon)}');\n`,
+							)}/${iconToExportName(icon)}').default;\n`,
 					)
 					.join('')}}`,
 		)
