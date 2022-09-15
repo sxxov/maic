@@ -219,53 +219,40 @@ for (const [variant, iconToContent] of Object.entries(
 
 writeFile(
 	distDtsPath,
-	`// ${pkgName}/{variant}/{icon}\n\n${Object.entries(
-		currVariantToIconToContent,
+	`// ${pkgName}\n\ndeclare module '${pkgName}' {\n\tnamespace Maic {\n${Object.keys(
+		Object.values(currVariantToIconToContent)[0] ?? {},
 	)
-		.map(([variant, iconToContent]) =>
-			Object.entries(iconToContent)
-				.map(
-					([icon, content]) =>
-						`declare module '${pkgName}/${variantToExportName(
-							variant,
-						)}/${iconToExportName(
-							icon,
-						)}' { const _: '${content}'; export default _; }\n`,
-				)
-				.join(''),
-		)
-		.join('')}\n\n// ${pkgName}/{variant}\n\n${Object.entries(
-		currVariantToIconToContent,
-	)
-		.map(
-			([variant, iconToContent]) =>
-				`declare module '${pkgName}/${variantToExportName(
-					variant,
-				)}' {\n${Object.keys(iconToContent)
-					.map(
-						(icon) =>
-							`\texport const ${iconToExportName(
-								icon,
-							)}: typeof import('${pkgName}/${variantToExportName(
-								variant,
-							)}/${iconToExportName(icon)}').default;\n`,
-					)
-					.join('')}}`,
-		)
-		.join(
-			'',
-		)}\n\n// ${pkgName}\n\ndeclare module '${pkgName}' {\n${Object.keys(
-		currVariantToIconToContent,
-	)
+		.map((icon) => `\t\texport const ${iconToExportName(icon)}: string;\n`)
+		.join('')}\t}\n\n${Object.keys(currVariantToIconToContent)
 		.map(
 			(variant) =>
 				`\texport const ${variantToExportName(
 					variant,
-				)}: typeof import('${pkgName}/${variantToExportName(
-					variant,
-				)}');\n`,
+				)}: typeof Maic;\n`,
 		)
-		.join('')}}`,
+		.join('')}}\n\n// ${pkgName}/{variant}\n\n${Object.keys(
+		currVariantToIconToContent,
+	)
+		.map(
+			(variant) =>
+				`declare module '${pkgName}/${variantToExportName(
+					variant,
+				)}' { const _: typeof import('maic').${variantToExportName(
+					variant,
+				)}; export = _; }\n`,
+		)
+		.join('')}\n\n// ${pkgName}/{variant}/{icon}\n\n${Object.keys(
+		currVariantToIconToContent,
+	)
+		.map(
+			(variant) =>
+				`declare module '${pkgName}/${variantToExportName(
+					variant,
+				)}/${iconToExportName(
+					'*',
+				)}' { const _: string; export default _; }\n`,
+		)
+		.join('')}`,
 );
 
 writeFile(
