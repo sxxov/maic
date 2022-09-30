@@ -9,7 +9,7 @@
 		"publish": "npm publish -w maic"
 	},
 	"devDependencies": {
-		"@material-design-icons/svg": "^0.12.1",
+		"@material-design-icons/svg": "^0.13.0",
 		"@typescript-eslint/eslint-plugin": "^5.30.6",
 		"@typescript-eslint/parser": "^5.30.6",
 		"deep-object-diff": "^1.1.7",
