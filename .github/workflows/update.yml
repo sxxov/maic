@@ -52,6 +52,4 @@ jobs:
             exit 0
           fi
           git push --follow-tags
-      - name: Publish
-        run: |
           npm run publish
