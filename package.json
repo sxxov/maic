@@ -19,7 +19,7 @@
 	"module": "./index.js",
 	"scripts": {
 		"build": "node --loader ts-node/esm build.ts",
-		"publish": "node --loader ts-node/esm publish.ts"
+		"pub": "node --loader ts-node/esm publish.ts"
 	},
 	"types": "./index.d.ts",
 	"exports": {
