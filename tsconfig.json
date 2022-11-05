@@ -1,11 +1,11 @@
 {
 	"include": [
-		"build/**/*.ts",
-		"types/**/*.ts",
 		"**/.eslintrc.cjs",
 		"**/.prettierrc.cjs",
 		"**/*.config.js",
 		"**/*.config.cjs",
+		"build.ts",
+		"publish.ts",
 	],
 	"exclude": [
 		"node_modules",

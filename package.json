@@ -1,15 +1,28 @@
 {
+	"name": "maic",
+	"description": "ma(terial )ic(ons)",
 	"type": "module",
-	"workspaces": [
-		"maic"
+	"keywords": [
+		"material",
+		"icons",
+		"svg",
+		"module",
+		"tree-shaking"
 	],
+	"author": "sxxov",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/sxxov/maic.git"
+	},
+	"homepage": "https://github.com/sxxov/maic#readme",
+	"license": "MIT",
+	"module": "./index.js",
 	"scripts": {
-		"build": "node --loader ts-node/esm build/index.ts",
-		"update": "npm i -D @material-design-icons/svg@*",
-		"publish": "npm publish -w maic"
+		"build": "node --loader ts-node/esm build.ts",
+		"publish": "node --loader ts-node/esm publish.ts"
 	},
 	"devDependencies": {
-		"@material-design-icons/svg": "^0.13.0",
+		"@material-design-icons/svg": "^0.13.1",
 		"@typescript-eslint/eslint-plugin": "^5.30.6",
 		"@typescript-eslint/parser": "^5.30.6",
 		"deep-object-diff": "^1.1.7",

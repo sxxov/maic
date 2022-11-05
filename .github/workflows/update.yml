@@ -33,7 +33,6 @@ jobs:
         run: |
           force="${{ github.event.inputs.force }}"
           dry="${{ github.event.inputs.dry }}"
-          npm run update
           status=0
           npm run build || status=$?
           if [ $status -gt 0 ]; then
@@ -51,5 +50,5 @@ jobs:
           if [ "$dry" = "1" ]; then
             exit 0
           fi
-          git push --follow-tags
           npm run publish
+          git push --follow-tags
