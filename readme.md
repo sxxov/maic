@@ -1,6 +1,6 @@
 # `maic`
 
-Material Design Icons by Google, in a tree-shakable, SVG string, ESModule/CommonJS form. Based off of [`@material-design-icons/svg`](https://github.com/marella/material-design-icons/tree/main/svg), & automatically updates via GitHub Actions.
+Material Design Icons by Google, in a tree-shakable, SVG string, ESModule form. Based off of [`@material-design-icons/svg`](https://github.com/marella/material-design-icons/tree/main/svg), & automatically updates via GitHub Actions.
 
 ```svelte
 <script>
@@ -83,13 +83,8 @@ Import the variant, & get access to each icon individually through named imports
 #### Example
 
 ```js
-// ESM, for web, TypeScript, & modern Node applications
 import { ic_1k_plus } from 'maic/filled';
 
-// CJS, for legacy Node applications
-const { ic_1k_plus } = require('maic/filled');
-
-// Either will return:
 /*
 	'<svg xmlns="http://www.w3.org/2000/svg" ...'
 */
@@ -109,13 +104,8 @@ Import only a specific icon, & gain access to it through a default import.
 > For more info, see [Tree-shaking](#tree-shaking).
 
 ```js
-// ESM, for web, TypeScript, & modern Node applications
 import ic_1k_plus from 'maic/filled/ic_1k_plus';
 
-// CJS, for legacy Node applications
-const ic_1k_plus = require('maic/filled/ic_1k_plus');
-
-// Either will return:
 /*
 	'<svg xmlns="http://www.w3.org/2000/svg" ...'
 */
@@ -136,13 +126,8 @@ Import the whole module, & gain access to variants, with their respective icons 
 #### Example
 
 ```js
-// ESM, for web, TypeScript, & modern Node applications
 import { filled } from 'maic';
 
-// CJS, for legacy Node applications
-const filled = require('maic');
-
-// Either will return:
 /*
 	{
 		ic_1k_plus: '<svg xmlns="http://www.w3.org/2000/...',
@@ -168,8 +153,6 @@ Unfortunately, tree-shaking in the JavaScript ecosystem is often fragile. This i
 	* (eg. `import * as filled from 'maic/filled'`)
 * ❌ Dynamic imports
 	* (eg. `const { ic_done } = await import('maic')`)
-* ❔ CommonJS imports
-	* (eg. `const { ic_done } = require('maic')`)
 
 In the situations where tree-shaking doesn't kick in, you may want to consider using only [icon-level imports](#icon-level-import). However, if the problem permuates through your codebase, a build chain refactor is commonly the only way out.
 
