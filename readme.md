@@ -139,6 +139,25 @@ import { filled } from 'maic';
 
 ## Usage notes
 
+### `vite`/`rollup` hot reloads
+
+To speed up development reloads when using `vite`/`rollup`, you may use the `maic/helper` plugin like below to only import the required icons during development. It is not advised to use this for your final production build though, as it may generate duplicate imports that pollute your final bundle.
+
+#### Example
+
+```js
+// vite/rollup.config.js
+import maicHelper from 'maic/helper';
+
+export default {
+	plugins: [
+		maicHelper({
+			enabled: !process.env.NODE_ENV !== 'production',
+		}),
+	],
+};
+```
+
 ### Tree-shaking
 
 The assumption of a working, tree-shaking-capable bundles is the crux of why this module can even exist. `maic` utilises the fact that any code that is not imported, or is imported & not used, will be shed away in modern bundlers. This enables `maic` to lump the (surprisingly massive) collection of Material Design Icon SVGs into a few JavaScript files & call it a day.

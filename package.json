@@ -21,6 +21,19 @@
 		"build": "node --loader ts-node/esm build.ts",
 		"publish": "node --loader ts-node/esm publish.ts"
 	},
+	"types": "./index.d.ts",
+	"exports": {
+		".": {
+			"import": "./index.js"
+		},
+		"./*": {
+			"import": "./*"
+		},
+		"./helper": {
+			"import": "./helper.js",
+			"require": "./helper.js"
+		}
+	},
 	"devDependencies": {
 		"@material-design-icons/svg": "^0.13.1",
 		"@typescript-eslint/eslint-plugin": "^5.30.6",
