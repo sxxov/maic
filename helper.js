@@ -75,7 +75,7 @@ export default ({ enabled = true }) => {
 			return imports
 				.map(
 					(icon) =>
-						`export { default as ${icon} } from '/node_modules/maic/esm/${variant}/${icon}.js';`,
+						`export { default as ${icon} } from 'maic/${variant}/${icon}.js';`,
 				)
 				.join('\n');
 		},
