@@ -56,13 +56,13 @@ import ic_done from 'maic/filled/done';
 
 > ❗**Caveat 1**
 > 
-> Unlike the folder structure found in [`@material-design-icons/svg`](https://github.com/marella/material-design-icons/tree/main/svg), **`{variant}`**s here are [`snake_cased`](https://en.wikipedia.org/wiki/Snake_case) rather than `kebab-cased` (eg. `two-tone` is cased as `two_tone`).
+> Unlike the folder structure found in [`@material-design-icons/svg`](https://github.com/marella/material-design-icons/tree/main/svg), **`{variant}`** s here are [`snake_cased`](https://en.wikipedia.org/wiki/Snake_case) rather than `kebab-cased` (eg. `two-tone` is cased as `two_tone`).
 >
 > For more info, see [ESM compatibility](#esm-compatibility).
 
 > ❗**Caveat 2**
 > 
-> **`{icon}`**s are always prefixed with `ic_` (eg. `import done from 'ic_done'`).
+> **`{icon}`** s are always prefixed with `ic_` (eg. `import done from 'ic_done'`).
 >
 > For more info, see [ESM compatibility](#esm-compatibility).
 
@@ -77,6 +77,8 @@ After that, simply use one of the import strategies below:
 
 Import the variant, & get access to each icon individually through named imports.
 
+> ℹ️ **Hint**
+>
 > This is the **recommended** way of using `maic`, as it balances terseness with tree-shakability.
 >
 > For more info, see [Tree-shaking](#tree-shaking).
@@ -85,10 +87,7 @@ Import the variant, & get access to each icon individually through named imports
 
 ```js
 import { ic_1k_plus } from 'maic/filled';
-
-/*
-	'<svg xmlns="http://www.w3.org/2000/svg" ...'
-*/
+//       ^ '<svg xmlns="http://www.w3.org/2000/svg" ...'
 ```
 
 > ℹ️ **Hint**
@@ -106,10 +105,7 @@ Import only a specific icon, & gain access to it through a default import.
 
 ```js
 import ic_1k_plus from 'maic/filled/ic_1k_plus';
-
-/*
-	'<svg xmlns="http://www.w3.org/2000/svg" ...'
-*/
+//     ^ '<svg xmlns="http://www.w3.org/2000/svg" ...'
 ```
 
 > ℹ️ **Hint**
@@ -120,7 +116,9 @@ import ic_1k_plus from 'maic/filled/ic_1k_plus';
 
 Import the whole module, & gain access to variants, with their respective icons inside.
 
-> **Use this with caution ⚠️** as to not "leak" the imported SVGs into un-tree-shakable contexts (such as cloning the immutable module object into a mutable, regular, JavaScript object)
+> **⚠️ Warning**
+> 
+> Use this with caution! as to not "leak" the imported SVGs into un-tree-shakable contexts (such as cloning the immutable module object into a mutable, regular, JavaScript object)
 >
 > For more info, see [Tree-shaking](#tree-shaking).
 
@@ -128,14 +126,11 @@ Import the whole module, & gain access to variants, with their respective icons 
 
 ```js
 import { filled } from 'maic';
-
-/*
-	{
-		ic_1k_plus: '<svg xmlns="http://www.w3.org/2000/...',
-		ic_1k: '<svg xmlns="http://www.w3.org/2000/svg" ...',
-		...
-	}
-*/
+//	     ^ {
+//		        ic_1k_plus: '<svg xmlns="http://www.w3.org/2000/...',
+//		        ic_1k: '<svg xmlns="http://www.w3.org/2000/svg" ...',
+//		        ...
+//	       }
 ```
 
 ## Usage notes
@@ -174,7 +169,7 @@ Unfortunately, tree-shaking in the JavaScript ecosystem is often fragile. This i
 * ❌ Dynamic imports
 	* (eg. `const { ic_done } = await import('maic')`)
 
-In the situations where tree-shaking doesn't kick in, you may want to consider using only [icon-level imports](#icon-level-import). However, if the problem permuates through your codebase, a build chain refactor is commonly the only way out.
+In the situations where tree-shaking doesn't kick in, you may want to consider using only [icon-level imports](#icon-level-import), or [`vite`/`rollup` hot reloads](#viterollup-hot-reloads). However, if the problem permuates through your codebase, a build chain refactor is commonly the only way out.
 
 ### ESM compatibility
 
@@ -218,6 +213,6 @@ npm run publish
 
 ### License
 
-* Material design icons are created by [Google](https://github.com/google/material-design-icons#license).
-* SVG's are sourced from [`@material-design-icons`](https://github.com/marella/material-design-icons/tree/main/svg), which is licensed under the [Apache License Version 2.0](https://github.com/marella/material-design-icons/blob/main/svg/LICENSE).
+* Material design icons are created by [Google](https://github.com/google/material-design-icons), licensed under the [Apache License Version 2.0](https://github.com/google/material-design-icons/blob/master/LICENSE).
+* SVG's are sourced from [`@material-design-icons`](https://github.com/marella/material-design-icons/tree/main/svg), licensed under the [Apache License Version 2.0](https://github.com/marella/material-design-icons/blob/main/svg/LICENSE).
 * This project is distributed under the [MIT License](https://opensource.org/licenses/MIT).
