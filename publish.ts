@@ -18,6 +18,6 @@ console.log(`publish: setting version(${iconVersion})...`);
 execSync(`npm version ${iconVersion}`);
 
 console.log(`publish: publishing...`);
-execSync(`npm publish`, { silent: true });
+execSync(`npm publish`, { stdio: 'ignore' });
 
 console.log(`publish: success!`);
