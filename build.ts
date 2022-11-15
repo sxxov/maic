@@ -75,6 +75,7 @@ const currInfo: IInfo = {
 						Object.fromEntries(
 							readdir(join(iconSvgDir, variantDir))
 								.filter((filename) => filename.endsWith('.svg'))
+								.sort()
 								.map(
 									(iconFilename) =>
 										[
