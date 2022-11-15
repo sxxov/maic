@@ -1,7 +1,7 @@
 export default ({ enabled = true }) => {
 	if (!enabled) return null;
 
-	/** @typedef {{ variant: string; imports: string[] }} DevMaicHelperData */
+	/** @typedef {{ variant: string | undefined; imports: string[] }} DevMaicHelperData */
 	/** @type {Map<string, DevMaicHelperData>} */
 	const generatedIdToData = new Map();
 	const generateId = () =>
@@ -74,8 +74,10 @@ export default ({ enabled = true }) => {
 
 			return imports
 				.map(
-					(icon) =>
-						`export { default as ${icon} } from 'maic/${variant}/${icon}.js';`,
+					variant
+						? (icon) =>
+							`export { default as ${icon} } from 'maic/${variant}/${icon}.js';`
+						: (variant) => `export * from 'maic/${variant}/index.js';`,
 				)
 				.join('\n');
 		},
