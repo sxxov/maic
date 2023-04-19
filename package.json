@@ -35,7 +35,7 @@
 		}
 	},
 	"devDependencies": {
-		"@material-design-icons/svg": "^0.14.5",
+		"@material-design-icons/svg": "^0.14.6",
 		"@typescript-eslint/eslint-plugin": "^5.30.6",
 		"@typescript-eslint/parser": "^5.30.6",
 		"deep-object-diff": "^1.1.7",
