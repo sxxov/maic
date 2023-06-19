@@ -6,10 +6,12 @@ import {
 	mkdirSync as mkdir,
 	rmSync as rm,
 } from 'node:fs';
-import { join, dirname } from 'node:path';
+import { join, dirname, relative } from 'node:path';
+import { join as posixJoin } from 'node:path/posix';
 import { fileURLToPath } from 'node:url';
 import { execSync } from 'node:child_process';
 import { detailedDiff } from 'deep-object-diff';
+import type Package from './package.json';
 
 interface IInfo {
 	version: string;
@@ -29,13 +31,13 @@ console.log('init: updating @material-design-icons/svg...');
 
 console.log('init: starting...');
 
-const pkg = JSON.parse(
-	readFile(join(thisDir, './package.json'), 'utf8'),
-) as typeof import('./package.json');
+const pkgPath = join(thisDir, './package.json');
+const pkgDir = dirname(pkgPath);
+const pkg = JSON.parse(readFile(pkgPath, 'utf8')) as typeof Package;
 const iconVersion = pkg.devDependencies['@material-design-icons/svg'];
 const iconSvgDir = join(thisDir, './node_modules/@material-design-icons/svg');
-const distDir = join(thisDir, '.');
-const infoPath = join(thisDir, './built.json!');
+const distDir = join(thisDir, './dist');
+const infoPath = join(thisDir, './dist.json!');
 
 console.log(`init: parsing previously collected info...`);
 const prevInfo: IInfo = (() => {
@@ -109,7 +111,7 @@ const { added, updated, deleted } = detailedDiff(
 ) as {
 	[k in 'added' | 'updated' | 'deleted']: Record<
 		keyof typeof currVariantToIconToContent,
-		typeof currVariantToIconToContent[string]
+		(typeof currVariantToIconToContent)[string]
 	>;
 };
 
@@ -227,6 +229,54 @@ console.log(`build: writing directory imports...`);
 				.join(''),
 		);
 	}
+}
+
+console.log(`build: writing package.json...`);
+{
+	const relativeDistDir = relative(pkgDir, distDir);
+
+	/* eslint-disable @typescript-eslint/naming-convention */
+	writeFile(
+		pkgPath,
+		JSON.stringify(
+			{
+				...pkg,
+				exports: {
+					...Object.fromEntries(
+						Object.keys(currVariantToIconToContent).map(
+							(variant) => [
+								`./${variantToExportName(variant)}`,
+								{
+									types: `./${posixJoin(
+										relativeDistDir,
+										variantToExportName(variant),
+										'index.d.ts',
+									)}`,
+									import: `./${posixJoin(
+										relativeDistDir,
+										variantToExportName(variant),
+										'index.js',
+									)}`,
+								},
+							],
+						),
+					),
+					'.': {
+						types: `./${posixJoin(relativeDistDir, 'index.d.ts')}`,
+						import: `./${posixJoin(relativeDistDir, 'index.js')}`,
+					},
+					'./*': { import: `./${posixJoin(relativeDistDir, '*')}` },
+					'./helper': {
+						types: `./${posixJoin(relativeDistDir, 'helper.d.ts')}`,
+						import: `./${posixJoin(relativeDistDir, 'helper.js')}`,
+					},
+				},
+			},
+			undefined,
+			'\t',
+		),
+	);
+	/* eslint-enable */
 }
 
 console.log(`build: saving collected info...`);

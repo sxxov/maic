@@ -16,22 +16,43 @@
 	},
 	"homepage": "https://github.com/sxxov/maic#readme",
 	"license": "MIT",
-	"module": "./index.js",
+	"module": "./dist/index.js",
 	"scripts": {
-		"build": "node --loader ts-node/esm build.ts",
+		"build": "node --loader ts-node/esm build.ts && tsc --project tsconfig.src.json",
 		"pub": "node --loader ts-node/esm publish.ts"
 	},
-	"types": "./index.d.ts",
+	"types": "./dist/index.d.ts",
 	"exports": {
+		"./filled": {
+			"types": "./dist/filled/index.d.ts",
+			"import": "./dist/filled/index.js"
+		},
+		"./outlined": {
+			"types": "./dist/outlined/index.d.ts",
+			"import": "./dist/outlined/index.js"
+		},
+		"./round": {
+			"types": "./dist/round/index.d.ts",
+			"import": "./dist/round/index.js"
+		},
+		"./sharp": {
+			"types": "./dist/sharp/index.d.ts",
+			"import": "./dist/sharp/index.js"
+		},
+		"./two_tone": {
+			"types": "./dist/two_tone/index.d.ts",
+			"import": "./dist/two_tone/index.js"
+		},
 		".": {
-			"import": "./index.js"
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js"
 		},
 		"./*": {
-			"import": "./*"
+			"import": "./dist/*"
 		},
 		"./helper": {
-			"import": "./helper.js",
-			"require": "./helper.js"
+			"types": "./dist/helper.d.ts",
+			"import": "./dist/helper.js"
 		}
 	},
 	"devDependencies": {
@@ -51,5 +72,5 @@
 		"ts-node": "^10.9.1",
 		"typescript": "^5.1.3"
 	},
-	"version": "0.14.9"
+	"version": "0.14.9-1"
 }

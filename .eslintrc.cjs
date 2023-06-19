@@ -145,6 +145,7 @@ const CommonOverrideRules = {
 		},
 	],
 	'@typescript-eslint/class-literal-property-style': ['error', 'fields'],
+	'@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
 	'@typescript-eslint/dot-notation': [
 		'error',
 		{

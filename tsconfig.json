@@ -4,6 +4,7 @@
 		"**/.prettierrc.cjs",
 		"**/*.config.js",
 		"**/*.config.cjs",
+		"src/**/*",
 		"build.ts",
 		"publish.ts",
 	],
@@ -11,6 +12,12 @@
 		"node_modules",
 	],
 	"compilerOptions": {
+		"noEmit": false,
+		"sourceMap": true,
+		"declaration": true,
+		"declarationMap": true,
+		"outDir": "dist",
+
 		"typeRoots": [
 			"node_modules/@types",
 		],
@@ -24,9 +31,7 @@
 		"isolatedModules": true,
 		"module": "esnext",
 		"target": "esnext",
-		"sourceMap": true,
-		"moduleResolution": "node",
-		"noEmit": true,
+		"moduleResolution": "bundler",
 		"strict": true,
 		"skipLibCheck": true,
 		"resolveJsonModule": true,
