@@ -21,9 +21,10 @@ Material Design Icons by Google, in a tree-shakable, SVG string, ESModule form. 
 	2. [Icon-level import](#icon-level-import)
 	3. [Top-level import](#top-level-import)
 3. [Usage notes](#usage-notes)
-	1. [`vite`/`rollup` hot reloads](#viterollup-hot-reloads)
-	2. [Tree shaking](#tree-shaking)
-	3. [ESM comptibility](#esm-compatibility)
+	1. [`vite`/`rollup` builds](#viterollup-builds)
+	2. [`EMFILE` errors on platforms with low file descriptor limits (i.e. Vercel)](#emfile-errors-on-platforms-with-low-file-descriptor-limits-ie-vercel)
+	3. [Tree shaking](#tree-shaking)
+	4. [ESM comptibility](#esm-compatibility)
 4. [Package notes](#package-notes)
 	1. [Versioning](#versioning)
 	2. [Building](#building)
@@ -135,9 +136,9 @@ import { filled } from 'maic';
 
 ## Usage notes
 
-### `vite`/`rollup` hot reloads
+### `vite`/`rollup` builds
 
-To speed up development reloads when using `vite`/`rollup`, you may use the `maic/helper` plugin like below to only import the required icons during development. It is not advised to use this for your final production build though, as it may generate duplicate imports that pollute your final bundle.
+To speed up development reloads when using `vite`/`rollup`, you may use the `maic/helper` plugin like below to only import the required icons during development.
 
 #### Example
 
@@ -150,6 +151,24 @@ export default {
 		maicHelper({
 			enabled: !process.env.NODE_ENV !== 'production',
 		}),
+	],
+};
+```
+
+### `EMFILE` errors on platforms with low file descriptor limits (i.e. Vercel)
+
+`maic` is a large module, having a file for each icon, for each variant. On certain build pipelines, treeshaking doesn't apply for SSR builds & they leak overly wide `maic` imports, such as `import {} from 'maic'`, causing runtimes to load the entire `maic` library & crashing. In this case, using `maic/helper` for both the development & production build may help.
+
+
+#### Example
+
+```js
+// vite/rollup.config.js
+import maicHelper from 'maic/helper';
+
+export default {
+	plugins: [
+		maicHelper(),
 	],
 };
 ```
