@@ -1,4 +1,4 @@
-export default ({ enabled = true }) => {
+export default ({ enabled = true } = {}) => {
 	if (!enabled) return null;
 
 	const generatedIdToData = new Map<
