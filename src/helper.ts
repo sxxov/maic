@@ -16,7 +16,7 @@ export default ({ enabled = true } = {}) => {
 		transform(src: string, _: string) {
 			let curr: RegExpExecArray | null = null;
 			const regex =
-				/import +{(?<content>(?:[^}{])*)} +from +["'](?<maic>maic)(?:\/(?<variant>\w+))?["'];?/dg;
+				/import\s+{(?<content>(?:[^}{])*)}\s+from\s+["'](?<maic>maic)(?:\/(?<variant>\w+))?["'];?/dg;
 			let dist = '';
 			let prevIndex = 0;
 
